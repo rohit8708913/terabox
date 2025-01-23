@@ -100,14 +100,15 @@ async def upload_to_channel(file_path, filename):
 if __name__ == "__main__":
     def run_flask():
         app.run(host="0.0.0.0", port=5000)
+    
     flask_thread = Thread(target=run_flask)
     flask_thread.start()
-    async def main():
-        try:
-            await telethon_client.start(bot_token=BOT_TOKEN)
-            print("Bot is running...")
-            bot.polling(none_stop=True, interval=1, timeout=60)
-        except Exception as e:
-            print(f"Error starting bot: {str(e)}")
-    asyncio.run(main())
+
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(telethon_client.start(bot_token=BOT_TOKEN))
+        print("Bot is running...")
+        bot.polling(none_stop=True, interval=1, timeout=60)
+    except Exception as e:
+        print(f"Error starting bot: {str(e)}")
   
