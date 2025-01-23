@@ -106,9 +106,12 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     try:
+        # Start the Telethon client
         loop.run_until_complete(telethon_client.start(bot_token=BOT_TOKEN))
+        
         print("Bot is running...")
+        
+        # Start the Telebot polling in a blocking manner
         bot.polling(none_stop=True, interval=1, timeout=60)
     except Exception as e:
         print(f"Error starting bot: {str(e)}")
-  
